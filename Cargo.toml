@@ -1,0 +1,16 @@
+[package]
+name = "marsupial"
+version = "0.1.0"
+authors = ["Victor Springer <victorspringer@gmail.com>"]
+
+[dependencies]
+iron = "*"
+router = "*"
+serde = "*"
+serde_derive = "*"
+serde_json = "*"
+persistent = "*"
+bodyparser = "*"
+bson = "0.10.0"
+mongodb = "0.3.7"
+rust-s3 = "0.9.0"
