@@ -1,5 +1,4 @@
 extern crate iron;
-extern crate iron_cors;
 extern crate router;
 #[macro_use]
 extern crate serde_derive;
@@ -11,7 +10,6 @@ extern crate mongodb;
 extern crate s3;
 
 use iron::prelude::*;
-use iron_cors::CorsMiddleware;
 use router::Router;
 use mongodb::{Client, ThreadedClient};
 use mongodb::db::ThreadedDatabase;
@@ -50,9 +48,5 @@ fn main() {
     );
     router.post("/insert-script", handling::insert_script, "insert-script");
 
-    let cors_middleware = CorsMiddleware::with_allow_any();
-    let mut chain = Chain::new(router);
-    chain.link_around(cors_middleware);
-
-    Iron::new(chain).http(("0.0.0.0", 8080)).unwrap();
+    Iron::new(router).http(("0.0.0.0", 8080)).unwrap();
 }
