@@ -30,8 +30,10 @@ pub fn send_file(file: File) -> Result<(), S3Error> {
 
     path.remove(0);
     let ref script = path.join("/");
-
-    let (_, _) = bucket.delete(script)?;
+    
+    if path.len() > 0 && path[0] != "" {
+        let (_, _) = bucket.delete(script)?;
+    }
 
     let (_, _) = bucket.put(script, file.code.as_bytes(), "application/octet-stream")?;
 
