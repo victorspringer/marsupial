@@ -20,7 +20,7 @@ mod uploader;
 mod script;
 
 fn main() {
-    let mongo_client = Client::connect("localhost", 27017)
+    let mongo_client = Client::connect("0.0.0.0", 27017)
         .expect("Failed to initialize standalone mongodb client.");
     let coll = mongo_client.db("marsupial").collection("scripts");
     coll.create_index(
@@ -48,5 +48,5 @@ fn main() {
     );
     router.post("/insert-script", handling::insert_script, "insert-script");
 
-    Iron::new(router).http("localhost:8080").unwrap();
+    Iron::new(router).http("0.0.0.0:8080").unwrap();
 }

@@ -17,7 +17,7 @@ pub fn health(_req: &mut Request) -> IronResult<Response> {
 }
 
 pub fn list_scripts(_req: &mut Request) -> IronResult<Response> {
-    let mongo_client = Client::connect("localhost", 27017)
+    let mongo_client = Client::connect("0.0.0.0", 27017)
         .expect("Failed to initialize standalone mongodb client.");
 
     let sort = mongodb::coll::options::FindOptions {
@@ -73,7 +73,7 @@ pub fn list_scripts(_req: &mut Request) -> IronResult<Response> {
 pub fn get_script_by_id(req: &mut Request) -> IronResult<Response> {
     let ref id = req.extensions.get::<Router>().unwrap().find("id").unwrap_or("/");
 
-    let mongo_client = Client::connect("localhost", 27017)
+    let mongo_client = Client::connect("0.0.0.0", 27017)
         .expect("Failed to initialize standalone mongodb client.");
 
     let doc = doc! {
@@ -130,7 +130,7 @@ pub fn get_script_by_id_and_version(req: &mut Request) -> IronResult<Response> {
     let ref version = req.extensions.get::<Router>().unwrap().find("version").unwrap_or("/");
     let version_int: i64 = version.parse().unwrap();
 
-    let mongo_client = Client::connect("localhost", 27017)
+    let mongo_client = Client::connect("0.0.0.0", 27017)
         .expect("Failed to initialize standalone mongodb client.");
 
     let doc = doc! {
@@ -188,7 +188,7 @@ pub fn insert_script(req: &mut Request) -> IronResult<Response> {
                 }
             }
 
-            let mongo_client = Client::connect("localhost", 27017)
+            let mongo_client = Client::connect("0.0.0.0", 27017)
                 .expect("Failed to initialize standalone mongodb client.");
 
             // get last version
